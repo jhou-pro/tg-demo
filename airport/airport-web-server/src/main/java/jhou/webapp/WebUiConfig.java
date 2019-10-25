@@ -3,12 +3,11 @@ package jhou.webapp;
 import org.apache.commons.lang.StringUtils;
 
 import jhou.config.personnel.PersonWebUiConfig;
-
+import jhou.webapp.config.tablecodes.AssetClassWebUiConfig;
 import ua.com.fielden.platform.basic.config.Workflows;
-import ua.com.fielden.platform.web.resources.webui.AbstractWebUiConfig;
 import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
 import ua.com.fielden.platform.web.interfaces.ILayout.Device;
-
+import ua.com.fielden.platform.web.resources.webui.AbstractWebUiConfig;
 import ua.com.fielden.platform.web.resources.webui.UserRoleWebUiConfig;
 import ua.com.fielden.platform.web.resources.webui.UserWebUiConfig;
 
@@ -69,7 +68,7 @@ public class WebUiConfig extends AbstractWebUiConfig {
         final PersonWebUiConfig personWebUiConfig = PersonWebUiConfig.register(injector(), builder);
         final UserWebUiConfig userWebUiConfig = new UserWebUiConfig(injector());
         final UserRoleWebUiConfig userRoleWebUiConfig = new UserRoleWebUiConfig(injector());
-
+        final AssetClassWebUiConfig assetClassWebUiConfig = AssetClassWebUiConfig.register(injector(), builder);
 
         // Configure application web resources such as masters and centres
         configApp()
@@ -89,6 +88,7 @@ public class WebUiConfig extends AbstractWebUiConfig {
                 detailIcon("mainMenu:help").
                 bgColor("#FFE680").
                 captionBgColor("#FFD42A").menu()
+                .addMenuItem("Asset Class").description("Asset Class centre").centre(assetClassWebUiConfig.centre).done()
                 .addMenuItem("Personnel").description("Personnel related data")
                     .addMenuItem("Personnel").description("Personnel Centre").centre(personWebUiConfig.centre).done()
                 .done()
