@@ -1,7 +1,9 @@
 package jhou.tablecodes;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -12,10 +14,47 @@ import ua.com.fielden.platform.utils.IUniversalConstants;
 public class AssetClassTest extends AbstractDaoTestCase {
     
     @Test
-    public void some_random_operations() {
+    public void some_predicates_on_abstract_entities() {
         final AssetClass ac1 = co(AssetClass.class).findByKey("AC1");
         assertNotNull(ac1);
         assertEquals("AC1", ac1.getKey().toString());
+        
+        assertTrue(ac1.isPersistent());
+        assertTrue(ac1.isPersisted());
+        
+        final IAssetClass coAssetClass = co(AssetClass.class);
+        final AssetClass newAc3 = coAssetClass.new_().setName("AC3");
+        newAc3.setDesc("new ac3");
+        assertNotNull(newAc3);
+        assertEquals("AC3", newAc3.getKey().toString());
+        
+        assertTrue(newAc3.isPersistent());
+        assertFalse(newAc3.isPersisted());
+    }
+    
+    @Test
+    public void dirty_and_valid_predicates_on_abstract_entities() {
+        final AssetClass ac1 = co$(AssetClass.class).findByKey("AC1");
+        
+        assertFalse(ac1.isDirty());
+        assertTrue(ac1.isValid().isSuccessful());
+        
+        ac1.setName("AC1");
+        assertFalse(ac1.isDirty());
+        assertTrue(ac1.isValid().isSuccessful());
+        
+        ac1.setName("AC42");
+        assertTrue(ac1.isDirty());
+        assertTrue(ac1.isValid().isSuccessful());
+        
+        ac1.setName("AC1");
+        assertFalse(ac1.isDirty());
+        assertTrue(ac1.isValid().isSuccessful());
+        
+        final AssetClass ac42 = co$(AssetClass.class).save(ac1.setName("AC42"));
+        assertFalse(ac42.isDirty());
+        ac42.setName("AC1");
+        assertTrue(ac42.isDirty());
     }
     
     /**
