@@ -1,5 +1,6 @@
 package jhou.tablecodes;
 
+import ua.com.fielden.platform.entity.AbstractEntity;
 import ua.com.fielden.platform.entity.AbstractPersistentEntity;
 import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.annotation.CompanionObject;
@@ -50,6 +51,12 @@ public class AssetClass extends AbstractPersistentEntity<DynamicEntityKey> {
     
     public String getName() {
         return name;
+    }
+    
+    @Override
+    @Observable
+    public AssetClass setDesc(final String desc) {
+        return (AssetClass) super.setDesc(desc);
     }
     
 }

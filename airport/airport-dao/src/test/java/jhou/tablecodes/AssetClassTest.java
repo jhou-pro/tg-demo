@@ -3,6 +3,7 @@ package jhou.tablecodes;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -55,6 +56,21 @@ public class AssetClassTest extends AbstractDaoTestCase {
         assertFalse(ac42.isDirty());
         ac42.setName("AC1");
         assertTrue(ac42.isDirty());
+    }
+    
+    @Test
+    public void createdBy_information_is_assigned_upon_saving() {
+        final AssetClass ac1 = co$(AssetClass.class).findByKey("AC1");
+        assertNotNull(ac1.getCreatedBy());
+        
+        final AssetClass ac42 = co$(AssetClass.class).new_().setName("AC42");
+        ac42.setDesc("Description");
+        final AssetClass ac42saved = co$(AssetClass.class).save(ac42);
+        
+        assertNotNull(ac42saved.getCreatedBy());
+        assertNull(ac42saved.getLastUpdatedBy());
+        System.out.println("createdBy = " + ac42.getCreatedBy());
+        System.out.println("lastUpdatedBy = " + ac42.getLastUpdatedBy());
     }
     
     /**
