@@ -15,6 +15,9 @@ import jhou.tablecodes.AssetClass;
 import jhou.tablecodes.AssetStatus;
 import jhou.asset.Certification;
 import jhou.asset.AssetCertification;
+import jhou.asset.ui_actions.OpenAssetMasterAction;
+import jhou.asset.master.menu.actions.AssetMaster_OpenMain_MenuItem;
+import jhou.asset.master.menu.actions.AssetMaster_OpenAssetCertification_MenuItem;
 
 /**
  * A class to register domain entities.
@@ -32,8 +35,8 @@ public class ApplicationDomain implements IApplicationDomainProvider {
     }
 
     /**
-                         * This is a static initialisation block where all entity types should be registered.
-                         */
+                                     * This is a static initialisation block where all entity types should be registered.
+                                     */
     static {
         entityTypes.addAll(PlatformDomainTypes.types);
         add(Person.class);
@@ -42,6 +45,9 @@ public class ApplicationDomain implements IApplicationDomainProvider {
         add(AssetStatus.class);
         add(Certification.class);
         add(AssetCertification.class);
+        add(OpenAssetMasterAction.class);
+        add(AssetMaster_OpenMain_MenuItem.class);
+        add(AssetMaster_OpenAssetCertification_MenuItem.class);
     }
 
     @Override
