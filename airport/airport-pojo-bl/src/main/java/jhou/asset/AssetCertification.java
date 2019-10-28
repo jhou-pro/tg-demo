@@ -1,18 +1,17 @@
 package jhou.asset;
 
-import jhou.asset.Asset;
-import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.AbstractPersistentEntity;
-import ua.com.fielden.platform.entity.annotation.CompositeKeyMember;
-import ua.com.fielden.platform.entity.annotation.KeyType;
-import ua.com.fielden.platform.entity.annotation.KeyTitle;
+import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.annotation.CompanionObject;
-import ua.com.fielden.platform.entity.annotation.MapEntityTo;
-import ua.com.fielden.platform.entity.annotation.MapTo;
+import ua.com.fielden.platform.entity.annotation.CompositeKeyMember;
+import ua.com.fielden.platform.entity.annotation.DescRequired;
 import ua.com.fielden.platform.entity.annotation.DescTitle;
 import ua.com.fielden.platform.entity.annotation.DisplayDescription;
-import ua.com.fielden.platform.entity.annotation.DescRequired;
 import ua.com.fielden.platform.entity.annotation.IsProperty;
+import ua.com.fielden.platform.entity.annotation.KeyTitle;
+import ua.com.fielden.platform.entity.annotation.KeyType;
+import ua.com.fielden.platform.entity.annotation.MapEntityTo;
+import ua.com.fielden.platform.entity.annotation.MapTo;
 import ua.com.fielden.platform.entity.annotation.Observable;
 import ua.com.fielden.platform.reflection.TitlesDescsGetter;
 import ua.com.fielden.platform.utils.Pair;
@@ -40,6 +39,21 @@ public class AssetCertification extends AbstractPersistentEntity<DynamicEntityKe
     @MapTo
     @CompositeKeyMember(1)
     private Asset asset;
+
+    @IsProperty
+    @MapTo
+    @CompositeKeyMember(2)
+    private Certification certification;
+
+    @Observable
+    public AssetCertification setCertification(final Certification certification) {
+        this.certification = certification;
+        return this;
+    }
+
+    public Certification getCertification() {
+        return certification;
+    }
 
     @Observable
     public AssetCertification setAsset(final Asset value) {
