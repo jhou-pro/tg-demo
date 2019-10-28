@@ -108,7 +108,7 @@ public class AssetWebUiConfig {
         final EntityActionConfig standardSortAction = CentreConfigActions.CUSTOMISE_COLUMNS_ACTION.mkAction();
 
         final EntityCentreConfig<Asset> ecc = EntityCentreBuilder.centreFor(Asset.class)
-                //.runAutomatically()
+                .runAutomatically()
                 .addFrontAction(newAssetAction)
                 .addTopAction(newAssetAction).also()
                 .addTopAction(standardDeleteAction).also()
@@ -123,7 +123,8 @@ public class AssetWebUiConfig {
                 .addProp("this").order(1).asc().minWidth(100)
                     .withSummary("total_count_", "COUNT(SELF)", format("Count:The total number of matching %ss.", Asset.ENTITY_TITLE))
                     .withAction(editAssetAction).also()
-                .addProp("desc").minWidth(300)
+                .addProp("desc").minWidth(300).also()
+                .addProp("status").minWidth(300)
                 .addPrimaryAction(editAssetAction)
                 .build();
 
