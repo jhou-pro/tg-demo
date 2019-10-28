@@ -8,6 +8,7 @@ import static jhou.common.StandardScrollingConfigs.standardStandaloneScrollingCo
 import static ua.com.fielden.platform.dao.AbstractOpenCompoundMasterDao.enhanceEmbededCentreQuery;
 import static ua.com.fielden.platform.entity_centre.review.DynamicQueryBuilder.createConditionProperty;
 import static ua.com.fielden.platform.web.PrefDim.mkDim;
+import static ua.com.fielden.platform.web.centre.api.actions.impl.EntityActionBuilder.action;
 import static ua.com.fielden.platform.web.centre.api.context.impl.EntityCentreContextSelector.context;
 
 import java.util.Optional;
@@ -17,6 +18,7 @@ import com.google.inject.Injector;
 import jhou.asset.Asset;
 import jhou.asset.AssetCertification;
 import jhou.asset.Certification;
+import jhou.asset.DisposeAssetAction;
 import jhou.asset.master.menu.actions.AssetMaster_OpenAssetCertification_MenuItem;
 import jhou.asset.master.menu.actions.AssetMaster_OpenMain_MenuItem;
 import jhou.asset.ui_actions.OpenAssetMasterAction;
@@ -44,6 +46,7 @@ import ua.com.fielden.platform.web.view.master.api.actions.MasterActions;
 import ua.com.fielden.platform.web.view.master.api.compound.Compound;
 import ua.com.fielden.platform.web.view.master.api.compound.impl.CompoundMasterBuilder;
 import ua.com.fielden.platform.web.view.master.api.impl.SimpleMasterBuilder;
+
 /**
  * {@link Asset} Web UI configuration.
  *
@@ -106,6 +109,12 @@ public class AssetWebUiConfig {
         final EntityActionConfig standardDeleteAction = StandardActions.DELETE_ACTION.mkAction(Asset.class);
         final EntityActionConfig standardExportAction = StandardActions.EXPORT_ACTION.mkAction(Asset.class);
         final EntityActionConfig standardSortAction = CentreConfigActions.CUSTOMISE_COLUMNS_ACTION.mkAction();
+        final EntityActionConfig disposeAssetAction = action(DisposeAssetAction.class)
+                .withContext(context().withSelectionCrit().withSelectedEntities().build())
+                .icon("icons:done-all")
+                .shortDesc("Dispose Assets")
+                .longDesc("Batch dispose assets (either manually selected or matching the selection criteria).")
+                .build();
 
         final EntityCentreConfig<Asset> ecc = EntityCentreBuilder.centreFor(Asset.class)
                 .runAutomatically()
@@ -113,7 +122,8 @@ public class AssetWebUiConfig {
                 .addTopAction(newAssetAction).also()
                 .addTopAction(standardDeleteAction).also()
                 .addTopAction(standardSortAction).also()
-                .addTopAction(standardExportAction)
+                .addTopAction(standardExportAction).also()
+                .addTopAction(disposeAssetAction)
                 .addCrit("this").asMulti().autocompleter(Asset.class).also()
                 .addCrit("desc").asMulti().text()
                 .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
