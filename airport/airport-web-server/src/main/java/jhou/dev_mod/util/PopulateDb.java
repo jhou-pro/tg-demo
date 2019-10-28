@@ -82,8 +82,8 @@ public class PopulateDb extends DomainDrivenDataPopulation {
         
         final AssetStatus oStatus = save(new_(AssetStatus.class, "O").setDesc("Operational."));
         final AssetStatus xStatus = save(new_(AssetStatus.class, "X").setDesc("Disposed."));
-        save(new_(Asset.class, "A1").setDesc("Asset 1."));
-        save(new_(Asset.class, "A2").setDesc("Asset 2."));
+        save(new_(Asset.class, "A1").setDesc("Asset 1.").setStatus(oStatus));
+        save(new_(Asset.class, "A2").setDesc("Asset 2.").setStatus(xStatus));
 
         LOGGER.info("Completed database creation and population.");
 	}
