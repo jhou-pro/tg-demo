@@ -1,13 +1,14 @@
 package jhou.webapp.config.asset;
 
-import static ua.com.fielden.platform.web.PrefDim.mkDim;
-import static jhou.common.StandardScrollingConfigs.standardEmbeddedScrollingConfig;
-import static jhou.common.StandardScrollingConfigs.standardStandaloneScrollingConfig;
+import static java.lang.String.format;
 import static jhou.common.StandardActions.actionAddDesc;
 import static jhou.common.StandardActions.actionEditDesc;
-import static java.lang.String.format;
+import static jhou.common.StandardScrollingConfigs.standardEmbeddedScrollingConfig;
+import static jhou.common.StandardScrollingConfigs.standardStandaloneScrollingConfig;
 import static ua.com.fielden.platform.dao.AbstractOpenCompoundMasterDao.enhanceEmbededCentreQuery;
 import static ua.com.fielden.platform.entity_centre.review.DynamicQueryBuilder.createConditionProperty;
+import static ua.com.fielden.platform.web.PrefDim.mkDim;
+import static ua.com.fielden.platform.web.centre.api.context.impl.EntityCentreContextSelector.context;
 
 import java.util.Optional;
 
@@ -15,35 +16,34 @@ import com.google.inject.Injector;
 
 import jhou.asset.Asset;
 import jhou.asset.AssetCertification;
-import jhou.main.menu.asset.MiAssetMaster_AssetCertification;
+import jhou.asset.Certification;
 import jhou.asset.master.menu.actions.AssetMaster_OpenAssetCertification_MenuItem;
+import jhou.asset.master.menu.actions.AssetMaster_OpenMain_MenuItem;
 import jhou.asset.ui_actions.OpenAssetMasterAction;
 import jhou.asset.ui_actions.producers.OpenAssetMasterActionProducer;
-import jhou.asset.master.menu.actions.AssetMaster_OpenMain_MenuItem;
-import ua.com.fielden.platform.web.interfaces.ILayout.Device;
-import ua.com.fielden.platform.web.centre.api.EntityCentreConfig;
-import ua.com.fielden.platform.web.centre.api.impl.EntityCentreBuilder;
-import ua.com.fielden.platform.web.centre.api.actions.EntityActionConfig;
-import ua.com.fielden.platform.web.view.master.api.actions.MasterActions;
-import ua.com.fielden.platform.web.view.master.api.impl.SimpleMasterBuilder;
-import ua.com.fielden.platform.web.view.master.api.compound.Compound;
-import ua.com.fielden.platform.web.view.master.api.compound.impl.CompoundMasterBuilder;
-import ua.com.fielden.platform.web.view.master.api.IMaster;
-import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
-import ua.com.fielden.platform.web.PrefDim;
-import ua.com.fielden.platform.web.PrefDim.Unit;
 import jhou.common.LayoutComposer;
 import jhou.common.StandardActions;
-import ua.com.fielden.platform.web.centre.EntityCentre;
-import ua.com.fielden.platform.web.action.CentreConfigurationWebUiConfig.CentreConfigActions;
-import static ua.com.fielden.platform.web.centre.api.context.impl.EntityCentreContextSelector.context;
-
-import ua.com.fielden.platform.web.centre.CentreContext;
-import ua.com.fielden.platform.web.centre.IQueryEnhancer;
+import jhou.main.menu.asset.MiAsset;
+import jhou.main.menu.asset.MiAssetMaster_AssetCertification;
 import ua.com.fielden.platform.entity.query.fluent.EntityQueryProgressiveInterfaces.ICompleted;
 import ua.com.fielden.platform.entity.query.fluent.EntityQueryProgressiveInterfaces.IWhere0;
-import jhou.main.menu.asset.MiAsset;
+import ua.com.fielden.platform.web.PrefDim;
+import ua.com.fielden.platform.web.PrefDim.Unit;
+import ua.com.fielden.platform.web.action.CentreConfigurationWebUiConfig.CentreConfigActions;
+import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
+import ua.com.fielden.platform.web.centre.CentreContext;
+import ua.com.fielden.platform.web.centre.EntityCentre;
+import ua.com.fielden.platform.web.centre.IQueryEnhancer;
+import ua.com.fielden.platform.web.centre.api.EntityCentreConfig;
+import ua.com.fielden.platform.web.centre.api.actions.EntityActionConfig;
+import ua.com.fielden.platform.web.centre.api.impl.EntityCentreBuilder;
+import ua.com.fielden.platform.web.interfaces.ILayout.Device;
 import ua.com.fielden.platform.web.view.master.EntityMaster;
+import ua.com.fielden.platform.web.view.master.api.IMaster;
+import ua.com.fielden.platform.web.view.master.api.actions.MasterActions;
+import ua.com.fielden.platform.web.view.master.api.compound.Compound;
+import ua.com.fielden.platform.web.view.master.api.compound.impl.CompoundMasterBuilder;
+import ua.com.fielden.platform.web.view.master.api.impl.SimpleMasterBuilder;
 /**
  * {@link Asset} Web UI configuration.
  *
@@ -149,7 +149,7 @@ public class AssetWebUiConfig {
                 .setLayoutFor(Device.MOBILE, Optional.empty(), layout)
                 .done();
 
-        return new EntityMaster<Asset>(Asset.class, masterConfig, injector);
+        return new EntityMaster<>(Asset.class, masterConfig, injector);
     }
 
     private EntityCentre<AssetCertification> createAssetCertificationCentre() {
@@ -168,17 +168,17 @@ public class AssetWebUiConfig {
                 .addTopAction(standardDeleteAction).also()
                 .addTopAction(standardSortAction).also()
                 .addTopAction(standardExportAction)
-                .addCrit("crit1").asMulti()/*.autocompleter(Crit1.class)*/.text().also()
-                .addCrit("crit2").asMulti()/*.autocompleter(Crit2.class)*/.text().also()
-                .addCrit("crit3").asRange().integer()
+                .addCrit("asset").asMulti().autocompleter(Asset.class).also()
+                .addCrit("certification").asMulti().autocompleter(Certification.class).also()
+                .addCrit("desc").asMulti().text()
                 .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
                 .setLayoutFor(Device.TABLET, Optional.empty(), layout)
                 .setLayoutFor(Device.MOBILE, Optional.empty(), layout)
                 .withScrollingConfig(standardEmbeddedScrollingConfig(0))
-                .addProp("prop1").order(1).asc().minWidth(80)
+                .addProp("asset").order(1).asc().minWidth(80)
                     .withSummary("total_count_", "COUNT(SELF)", format("Count:The total number of matching %ss.", AssetCertification.ENTITY_TITLE)).also()
-                .addProp("prop2").minWidth(80).also()
-                .addProp("prop3").minWidth(80)
+                .addProp("certification").minWidth(80).also()
+                .addProp("desc").minWidth(80)
                 .addPrimaryAction(standardEditAction)
                 .setQueryEnhancer(AssetMaster_AssetCertificationCentre_QueryEnhancer.class, context().withMasterEntity().build())
                 .build();
