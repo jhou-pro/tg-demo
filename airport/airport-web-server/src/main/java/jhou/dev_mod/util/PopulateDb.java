@@ -6,15 +6,15 @@ import java.io.FileInputStream;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.dialect.H2Dialect;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.xml.DOMConfigurator;
-
+import jhou.asset.Asset;
 import jhou.config.ApplicationDomain;
 import jhou.personnel.Person;
-
+import jhou.tablecodes.AssetStatus;
 import ua.com.fielden.platform.devdb_support.DomainDrivenDataPopulation;
 import ua.com.fielden.platform.entity.AbstractEntity;
 import ua.com.fielden.platform.persistence.HibernateUtil;
@@ -79,6 +79,11 @@ public class PopulateDb extends DomainDrivenDataPopulation {
         
         setupUser(User.system_users.SU, "jhou");
         setupPerson(User.system_users.SU, "jhou");
+        
+        final AssetStatus oStatus = save(new_(AssetStatus.class, "O").setDesc("Operational."));
+        final AssetStatus xStatus = save(new_(AssetStatus.class, "X").setDesc("Disposed."));
+        save(new_(Asset.class, "A1").setDesc("Asset 1."));
+        save(new_(Asset.class, "A2").setDesc("Asset 2."));
 
         LOGGER.info("Completed database creation and population.");
 	}
