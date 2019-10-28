@@ -3,6 +3,7 @@ package jhou.webapp;
 import org.apache.commons.lang.StringUtils;
 
 import jhou.config.personnel.PersonWebUiConfig;
+import jhou.webapp.config.asset.AssetWebUiConfig;
 import jhou.webapp.config.tablecodes.AssetClassWebUiConfig;
 import ua.com.fielden.platform.basic.config.Workflows;
 import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
@@ -69,6 +70,7 @@ public class WebUiConfig extends AbstractWebUiConfig {
         final UserWebUiConfig userWebUiConfig = new UserWebUiConfig(injector());
         final UserRoleWebUiConfig userRoleWebUiConfig = new UserRoleWebUiConfig(injector());
         final AssetClassWebUiConfig assetClassWebUiConfig = AssetClassWebUiConfig.register(injector(), builder);
+        final AssetWebUiConfig assetWebUiConfig = AssetWebUiConfig.register(injector(), builder);
 
         // Configure application web resources such as masters and centres
         configApp()
@@ -88,6 +90,7 @@ public class WebUiConfig extends AbstractWebUiConfig {
                 detailIcon("mainMenu:help").
                 bgColor("#FFE680").
                 captionBgColor("#FFD42A").menu()
+                .addMenuItem("Asset").description("Asset centre").centre(assetWebUiConfig.centre).done()
                 .addMenuItem("Asset Class").description("Asset Class centre").centre(assetClassWebUiConfig.centre).done()
                 .addMenuItem("Personnel").description("Personnel related data")
                     .addMenuItem("Personnel").description("Personnel Centre").centre(personWebUiConfig.centre).done()
