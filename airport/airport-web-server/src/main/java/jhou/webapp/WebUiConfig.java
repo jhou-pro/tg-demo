@@ -6,6 +6,7 @@ import jhou.config.personnel.PersonWebUiConfig;
 import jhou.webapp.config.asset.AssetCertificationWebUiConfig;
 import jhou.webapp.config.asset.AssetWebUiConfig;
 import jhou.webapp.config.asset.actions.DisposeAssetActionWebUiConfig;
+import jhou.webapp.config.asset.actions.ImportDescActionWebUiConfig;
 import jhou.webapp.config.tablecodes.AssetClassWebUiConfig;
 import ua.com.fielden.platform.basic.config.Workflows;
 import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
@@ -75,6 +76,7 @@ public class WebUiConfig extends AbstractWebUiConfig {
         final AssetWebUiConfig assetWebUiConfig = AssetWebUiConfig.register(injector(), builder);
         DisposeAssetActionWebUiConfig.register(injector(), builder);
         AssetCertificationWebUiConfig.register(injector(), builder);
+        ImportDescActionWebUiConfig.register(injector(), builder);
 
         // Configure application web resources such as masters and centres
         configApp()
