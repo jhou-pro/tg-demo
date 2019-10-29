@@ -152,6 +152,11 @@ public class AssetWebUiConfig {
         
         final EntityActionConfig displayRelatedOpenAssets = action(OpenRelatedAssetsAction.class)
                 .withContext(context().withMasterEntity().build())
+                .icon("icons:view-list")
+                .shortDesc("Related Assets")
+                .longDesc("Shows the list of all related open assets for this property.")
+                .prefDimForView(mkDim(1280, Unit.PX, 90, Unit.PRC))
+                .withNoParentCentreRefresh()
                 .build();
 
         final IMaster<Asset> masterConfig = new SimpleMasterBuilder<Asset>().forEntity(Asset.class)
