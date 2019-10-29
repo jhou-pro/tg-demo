@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 
 import jhou.config.personnel.PersonWebUiConfig;
 import jhou.webapp.config.asset.AssetWebUiConfig;
+import jhou.webapp.config.asset.DisposeAssetActionWebUiConfig;
 import jhou.webapp.config.tablecodes.AssetClassWebUiConfig;
 import ua.com.fielden.platform.basic.config.Workflows;
 import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
@@ -71,6 +72,7 @@ public class WebUiConfig extends AbstractWebUiConfig {
         final UserRoleWebUiConfig userRoleWebUiConfig = new UserRoleWebUiConfig(injector());
         final AssetClassWebUiConfig assetClassWebUiConfig = AssetClassWebUiConfig.register(injector(), builder);
         final AssetWebUiConfig assetWebUiConfig = AssetWebUiConfig.register(injector(), builder);
+        DisposeAssetActionWebUiConfig.register(injector(), builder);
 
         // Configure application web resources such as masters and centres
         configApp()
