@@ -85,7 +85,9 @@ public class PopulateDb extends DomainDrivenDataPopulation {
         final AssetStatus oStatus = save(new_(AssetStatus.class, "O").setDesc("Operational."));
         final AssetStatus xStatus = save(new_(AssetStatus.class, "X").setDesc("Disposed."));
         final Asset asset1 = save(new_(Asset.class, "A1").setDesc("Asset 1.").setStatus(oStatus));
-        save(new_(Asset.class, "A2").setDesc("Asset 2.").setStatus(xStatus));
+        final Asset asset2 = save(new_(Asset.class, "A2").setDesc("Asset 2.").setStatus(xStatus).setParent(asset1));
+        final Asset asset3 = save(new_(Asset.class, "A3").setDesc("Asset 3.").setStatus(oStatus).setParent(asset1).setPeer(asset2));
+        save(asset2.setPeer(asset3));
         final Certification cert1 = save(new_(Certification.class, "C1").setDesc("Certification 1."));
         final Certification cert2 = save(new_(Certification.class, "C2").setDesc("Certification 2."));
         save(new_composite(AssetCertification.class, asset1, cert1));

@@ -39,6 +39,36 @@ public class Asset extends AbstractPersistentEntity<String> {
     @MapTo
     @Title("Status")
     private AssetStatus status;
+    
+    @IsProperty
+    @MapTo
+    @Title("Parent")
+    private Asset parent;
+    
+    @IsProperty
+    @MapTo
+    @Title("Peer")
+    private Asset peer;
+
+    @Observable
+    public Asset setPeer(final Asset peer) {
+        this.peer = peer;
+        return this;
+    }
+
+    public Asset getPeer() {
+        return peer;
+    }
+
+    @Observable
+    public Asset setParent(final Asset parent) {
+        this.parent = parent;
+        return this;
+    }
+
+    public Asset getParent() {
+        return parent;
+    }
 
     @Observable
     public Asset setStatus(final AssetStatus status) {
