@@ -7,6 +7,7 @@ import java.util.Optional;
 import com.google.inject.Injector;
 
 import jhou.asset.AssetCertification;
+import jhou.asset.producers.AssetCertificationProducer;
 import jhou.common.LayoutComposer;
 import ua.com.fielden.platform.web.PrefDim.Unit;
 import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
@@ -56,6 +57,6 @@ public class AssetCertificationWebUiConfig {
                 .withDimensions(mkDim(LayoutComposer.SIMPLE_ONE_COLUMN_MASTER_DIM_WIDTH, 480, Unit.PX))
                 .done();
 
-        return new EntityMaster<>(AssetCertification.class, masterConfig, injector);
+        return new EntityMaster<>(AssetCertification.class, AssetCertificationProducer.class, masterConfig, injector);
     }
 }
