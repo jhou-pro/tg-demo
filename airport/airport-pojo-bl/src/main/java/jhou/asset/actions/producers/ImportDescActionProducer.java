@@ -2,11 +2,11 @@ package jhou.asset.actions.producers;
 
 import com.google.inject.Inject;
 
+import jhou.asset.AssetCertification;
+import jhou.asset.actions.ImportDescAction;
 import ua.com.fielden.platform.entity.DefaultEntityProducerWithContext;
 import ua.com.fielden.platform.entity.factory.EntityFactory;
 import ua.com.fielden.platform.entity.factory.ICompanionObjectFinder;
-
-import jhou.asset.actions.ImportDescAction;
 /**
  * A producer for new instances of entity {@link ImportDescAction}.
  *
@@ -22,10 +22,10 @@ public class ImportDescActionProducer extends DefaultEntityProducerWithContext<I
 
     @Override
     protected ImportDescAction provideDefaultValues(final ImportDescAction entity) {
-        // TODO Context from producers should always be captured as entity properties.
-        //      Producers provide context decomposition API - refer IContextDecomposer.
-        //      For example to capture selected entities it is best to use method "selectedEntityIds",
-        //      which returns a set of Long values and is much faster for marshaling than the fully fledged entities.
+        if (contextNotEmpty()) {
+            final AssetCertification masterEntity = masterEntity(AssetCertification.class); // we know exact type here
+            entity.setDesc(masterEntity.getAsset().getDesc());
+        }
         return super.provideDefaultValues(entity);
     }
 }
