@@ -1,6 +1,6 @@
-package jhou.asset.definers;
+package jhou.asset.actions.definers;
 
-import jhou.asset.DisposeAssetAction;
+import jhou.asset.actions.DisposeAssetAction;
 import ua.com.fielden.platform.entity.meta.IAfterChangeEventHandler;
 import ua.com.fielden.platform.entity.meta.MetaProperty;
 

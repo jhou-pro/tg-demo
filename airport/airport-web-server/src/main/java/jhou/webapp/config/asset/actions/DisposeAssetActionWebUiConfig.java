@@ -1,4 +1,4 @@
-package jhou.webapp.config.asset;
+package jhou.webapp.config.asset.actions;
 
 import static ua.com.fielden.platform.web.PrefDim.mkDim;
 
@@ -6,8 +6,8 @@ import java.util.Optional;
 
 import com.google.inject.Injector;
 
-import jhou.asset.DisposeAssetAction;
-import jhou.asset.producers.DisposeAssetActionProducer;
+import jhou.asset.actions.DisposeAssetAction;
+import jhou.asset.actions.producers.DisposeAssetActionProducer;
 import jhou.common.LayoutComposer;
 import ua.com.fielden.platform.web.PrefDim.Unit;
 import ua.com.fielden.platform.web.app.config.IWebUiBuilder;

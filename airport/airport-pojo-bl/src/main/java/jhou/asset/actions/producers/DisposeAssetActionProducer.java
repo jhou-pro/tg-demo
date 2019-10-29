@@ -1,12 +1,11 @@
-package jhou.asset.producers;
+package jhou.asset.actions.producers;
 
 import com.google.inject.Inject;
 
+import jhou.asset.actions.DisposeAssetAction;
 import ua.com.fielden.platform.entity.DefaultEntityProducerWithContext;
 import ua.com.fielden.platform.entity.factory.EntityFactory;
 import ua.com.fielden.platform.entity.factory.ICompanionObjectFinder;
-
-import jhou.asset.DisposeAssetAction;
 /**
  * A producer for new instances of entity {@link DisposeAssetAction}.
  *

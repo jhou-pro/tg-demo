@@ -14,11 +14,11 @@ import jhou.asset.Asset;
 import jhou.tablecodes.AssetClass;
 import jhou.tablecodes.AssetStatus;
 import jhou.asset.Certification;
+import jhou.asset.actions.DisposeAssetAction;
 import jhou.asset.AssetCertification;
 import jhou.asset.ui_actions.OpenAssetMasterAction;
 import jhou.asset.master.menu.actions.AssetMaster_OpenMain_MenuItem;
 import jhou.asset.master.menu.actions.AssetMaster_OpenAssetCertification_MenuItem;
-import jhou.asset.DisposeAssetAction;
 
 /**
  * A class to register domain entities.

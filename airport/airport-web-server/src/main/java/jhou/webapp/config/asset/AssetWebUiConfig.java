@@ -18,7 +18,7 @@ import com.google.inject.Injector;
 import jhou.asset.Asset;
 import jhou.asset.AssetCertification;
 import jhou.asset.Certification;
-import jhou.asset.DisposeAssetAction;
+import jhou.asset.actions.DisposeAssetAction;
 import jhou.asset.master.menu.actions.AssetMaster_OpenAssetCertification_MenuItem;
 import jhou.asset.master.menu.actions.AssetMaster_OpenMain_MenuItem;
 import jhou.asset.ui_actions.OpenAssetMasterAction;

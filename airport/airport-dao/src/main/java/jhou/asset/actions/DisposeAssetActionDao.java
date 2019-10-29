@@ -1,7 +1,8 @@
-package jhou.asset;
+package jhou.asset.actions;
 
 import com.google.inject.Inject;
 
+import jhou.asset.actions.IDisposeAssetAction;
 import ua.com.fielden.platform.dao.CommonEntityDao;
 import ua.com.fielden.platform.entity.query.IFilter;
 import ua.com.fielden.platform.entity.annotation.EntityType;

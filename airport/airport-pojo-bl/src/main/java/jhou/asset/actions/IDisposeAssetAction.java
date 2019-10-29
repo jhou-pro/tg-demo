@@ -1,4 +1,4 @@
-package jhou.asset;
+package jhou.asset.actions;
 
 import ua.com.fielden.platform.dao.IEntityDao;
 

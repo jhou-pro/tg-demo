@@ -1,10 +1,10 @@
-package jhou.asset;
+package jhou.asset.actions;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import jhou.asset.definers.DisposeAssetActionDisposeAllSelectedDefiner;
+import jhou.asset.actions.definers.DisposeAssetActionDisposeAllSelectedDefiner;
 import ua.com.fielden.platform.entity.AbstractFunctionalEntityWithCentreContext;
 import ua.com.fielden.platform.entity.NoKey;
 import ua.com.fielden.platform.entity.annotation.CompanionObject;
