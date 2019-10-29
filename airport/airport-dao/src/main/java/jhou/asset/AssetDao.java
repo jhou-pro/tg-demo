@@ -22,8 +22,6 @@ public class AssetDao extends CommonEntityDao<Asset> implements IAsset {
 
     @Override
     protected IFetchProvider<Asset> createFetchProvider() {
-        // TODO: uncomment the following line and specify the properties, which are required for the UI in IAsset.FETCH_PROVIDER. Then remove the line after.
-        // return FETCH_PROVIDER;
-        throw new UnsupportedOperationException("Please specify the properties, which are required for the UI in IAsset.FETCH_PROVIDER");
+        return FETCH_PROVIDER;
     }
 }
