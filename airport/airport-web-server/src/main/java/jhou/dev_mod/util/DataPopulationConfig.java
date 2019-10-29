@@ -2,22 +2,21 @@ package jhou.dev_mod.util;
 
 import java.util.Properties;
 
+import com.google.inject.Injector;
+
 import jhou.config.ApplicationDomain;
 import jhou.dbsetup.HibernateSetup;
 import jhou.filter.NoDataFilter;
 import jhou.ioc.ApplicationServerModule;
+import jhou.ioc.WebApplicationServerModule;
 import jhou.serialisation.SerialisationClassProvider;
-
-import ua.com.fielden.platform.entity.query.metadata.DomainMetadata;
 import ua.com.fielden.platform.entity.factory.EntityFactory;
 import ua.com.fielden.platform.entity.query.IdOnlyProxiedEntityTypeCache;
+import ua.com.fielden.platform.entity.query.metadata.DomainMetadata;
 import ua.com.fielden.platform.ioc.ApplicationInjectorFactory;
 import ua.com.fielden.platform.ioc.NewUserNotifierMockBindingModule;
-import ua.com.fielden.platform.security.NoAuthorisation;
 import ua.com.fielden.platform.test.DbDrivenTestCase;
 import ua.com.fielden.platform.test.IDomainDrivenTestCaseConfiguration;
-
-import com.google.inject.Injector;
 
 /**
  * Provides Jhou Airport Asset Management specific implementation of {@link IDomainDrivenTestCaseConfiguration} to be used for creation and population of the target development database from within of IDE.
@@ -48,13 +47,12 @@ public final class DataPopulationConfig implements IDomainDrivenTestCaseConfigur
     	    props.setProperty("email.fromAddress", "airport_support@jhou.com.ua");
 
     	    final ApplicationDomain applicationDomainProvider = new ApplicationDomain();
-    	    module = new ApplicationServerModule(
+    	    module = new WebApplicationServerModule(
     	            HibernateSetup.getHibernateTypes(), 
     	            applicationDomainProvider, 
     	            applicationDomainProvider.domainTypes(), 
     	            SerialisationClassProvider.class, 
                     NoDataFilter.class,
-                    NoAuthorisation.class, 
     	            props);
     	    injector = new ApplicationInjectorFactory()
     	            .add(module)
