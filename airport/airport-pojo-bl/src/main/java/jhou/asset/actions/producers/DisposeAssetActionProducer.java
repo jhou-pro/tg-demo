@@ -21,10 +21,20 @@ public class DisposeAssetActionProducer extends DefaultEntityProducerWithContext
 
     @Override
     protected DisposeAssetAction provideDefaultValues(final DisposeAssetAction entity) {
-        // TODO Context from producers should always be captured as entity properties.
-        //      Producers provide context decomposition API - refer IContextDecomposer.
-        //      For example to capture selected entities it is best to use method "selectedEntityIds",
-        //      which returns a set of Long values and is much faster for marshaling than the fully fledged entities.
-        return super.provideDefaultValues(entity);
+        if (contextNotEmpty()) {
+            // take selectionCrit's context holder and initialise functional entity's corresponding property
+            entity.setContextHolder(selectionCrit().centreContextHolder());
+            if (selectedEntitiesNotEmpty()) {
+                // store IDs of selected entities if there are any
+                entity.setSelectedEntityIds(selectedEntityIds());
+                // check `Dispose selected?` checkbox by default
+                entity.setDisposeSelected(true);
+            } else {
+                // check `Dispose All?` checkbox by default
+                entity.setDisposeAll(true);
+            }
+        }
+        // the context is not present only if Cancel button is being tapped on action master -- no properties should be initialised
+        return entity;
     }
 }

@@ -58,7 +58,7 @@ public class DisposeAssetAction extends AbstractFunctionalEntityWithCentreContex
     }
 
     @Observable
-    protected DisposeAssetAction setSelectedEntityIds(final Set<Long> selectedEntityIds) {
+    public DisposeAssetAction setSelectedEntityIds(final Set<Long> selectedEntityIds) {
         this.selectedEntityIds.clear();
         this.selectedEntityIds.addAll(selectedEntityIds);
         return this;
