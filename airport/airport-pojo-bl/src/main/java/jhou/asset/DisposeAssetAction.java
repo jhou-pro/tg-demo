@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import jhou.asset.definers.DisposeAssetActionDisposeAllSelectedDefiner;
 import ua.com.fielden.platform.entity.AbstractFunctionalEntityWithCentreContext;
 import ua.com.fielden.platform.entity.NoKey;
 import ua.com.fielden.platform.entity.annotation.CompanionObject;
@@ -11,6 +12,7 @@ import ua.com.fielden.platform.entity.annotation.IsProperty;
 import ua.com.fielden.platform.entity.annotation.KeyType;
 import ua.com.fielden.platform.entity.annotation.Observable;
 import ua.com.fielden.platform.entity.annotation.Title;
+import ua.com.fielden.platform.entity.annotation.mutator.AfterChange;
 import ua.com.fielden.platform.entity.functional.centre.CentreContextHolder;
 import ua.com.fielden.platform.reflection.TitlesDescsGetter;
 import ua.com.fielden.platform.utils.Pair;
@@ -31,10 +33,12 @@ public class DisposeAssetAction extends AbstractFunctionalEntityWithCentreContex
     
     @IsProperty
     @Title(value = "Dispose all?", desc = "Dispose all assets that match the selection criteria and appear in the centre?")
+    @AfterChange(DisposeAssetActionDisposeAllSelectedDefiner.class)
     private boolean disposeAll = false;
     
     @IsProperty
     @Title(value = "Dispose selected?", desc = "Dispose only explicitly selected assets?")
+    @AfterChange(DisposeAssetActionDisposeAllSelectedDefiner.class)
     private boolean disposeSelected = false;
     
     @IsProperty(Long.class)
@@ -70,7 +74,7 @@ public class DisposeAssetAction extends AbstractFunctionalEntityWithCentreContex
         return this;
     }
 
-    public boolean getDisposeSelected() {
+    public boolean isDisposeSelected() {
         return disposeSelected;
     }
 
@@ -80,7 +84,7 @@ public class DisposeAssetAction extends AbstractFunctionalEntityWithCentreContex
         return this;
     }
 
-    public boolean getDisposeAll() {
+    public boolean isDisposeAll() {
         return disposeAll;
     }
 }
