@@ -13,6 +13,6 @@ import ua.com.fielden.platform.dao.IEntityDao;
 public interface IAsset extends IEntityDao<Asset> {
 
     static final IFetchProvider<Asset> FETCH_PROVIDER = EntityUtils.fetch(Asset.class).with(
-        "key", "desc", "status");
+        "key", "desc", "status", "parent", "peer");
 
 }

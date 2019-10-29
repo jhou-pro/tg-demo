@@ -19,6 +19,7 @@ import jhou.asset.Asset;
 import jhou.asset.AssetCertification;
 import jhou.asset.Certification;
 import jhou.asset.actions.DisposeAssetAction;
+import jhou.asset.actions.OpenRelatedAssetsAction;
 import jhou.asset.master.menu.actions.AssetMaster_OpenAssetCertification_MenuItem;
 import jhou.asset.master.menu.actions.AssetMaster_OpenMain_MenuItem;
 import jhou.asset.ui_actions.OpenAssetMasterAction;
@@ -147,12 +148,23 @@ public class AssetWebUiConfig {
      * @return
      */
     private EntityMaster<Asset> createAssetMaster() {
-        final String layout = LayoutComposer.mkGridForMasterFitWidth(3, 1);
+        final String layout = LayoutComposer.mkGridForMasterFitWidth(5, 1);
+        
+        final EntityActionConfig displayRelatedOpenAssets = action(OpenRelatedAssetsAction.class)
+                .withContext(context().withMasterEntity().build())
+                .icon("icons:view-list")
+                .shortDesc("Related Assets")
+                .longDesc("Shows the list of all related open assets for this property.")
+                .prefDimForView(mkDim(1280, Unit.PX, 90, Unit.PRC))
+                .withNoParentCentreRefresh()
+                .build();
 
         final IMaster<Asset> masterConfig = new SimpleMasterBuilder<Asset>().forEntity(Asset.class)
                 .addProp("key").asSinglelineText().also()
                 .addProp("desc").asMultilineText().also()
                 .addProp("status").asAutocompleter().also()
+                .addProp("parent").asAutocompleter().withAction(displayRelatedOpenAssets).also()
+                .addProp("peer").asAutocompleter().withAction(displayRelatedOpenAssets).also()
                 .addAction(MasterActions.REFRESH).shortDesc("Cancel").longDesc("Cancel action")
                 .addAction(MasterActions.SAVE)
                 .setActionBarLayoutFor(Device.DESKTOP, Optional.empty(), LayoutComposer.mkActionLayoutForMaster())
