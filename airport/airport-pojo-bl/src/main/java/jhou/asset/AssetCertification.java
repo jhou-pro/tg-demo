@@ -1,8 +1,9 @@
 package jhou.asset;
 
-import jhou.tablecodes.AssetStatus;
 import ua.com.fielden.platform.entity.AbstractPersistentEntity;
+import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.annotation.CompanionObject;
+import ua.com.fielden.platform.entity.annotation.CompositeKeyMember;
 import ua.com.fielden.platform.entity.annotation.DescRequired;
 import ua.com.fielden.platform.entity.annotation.DescTitle;
 import ua.com.fielden.platform.entity.annotation.DisplayDescription;
@@ -12,48 +13,56 @@ import ua.com.fielden.platform.entity.annotation.KeyType;
 import ua.com.fielden.platform.entity.annotation.MapEntityTo;
 import ua.com.fielden.platform.entity.annotation.MapTo;
 import ua.com.fielden.platform.entity.annotation.Observable;
-import ua.com.fielden.platform.entity.annotation.Title;
 import ua.com.fielden.platform.reflection.TitlesDescsGetter;
 import ua.com.fielden.platform.utils.Pair;
 
 /**
- * Master entity object.
+ * One-2-Many entity object.
  *
  * @author Developers
  *
  */
-@KeyType(String.class)
+@KeyType(DynamicEntityKey.class)
 @KeyTitle("Key")
-@CompanionObject(IAsset.class)
+@CompanionObject(IAssetCertification.class)
 @MapEntityTo
 @DescTitle("Description")
 @DisplayDescription
 @DescRequired
-public class Asset extends AbstractPersistentEntity<String> {
+public class AssetCertification extends AbstractPersistentEntity<DynamicEntityKey> {
 
-    private static final Pair<String, String> entityTitleAndDesc = TitlesDescsGetter.getEntityTitleAndDesc(Asset.class);
+    private static final Pair<String, String> entityTitleAndDesc = TitlesDescsGetter.getEntityTitleAndDesc(AssetCertification.class);
     public static final String ENTITY_TITLE = entityTitleAndDesc.getKey();
     public static final String ENTITY_DESC = entityTitleAndDesc.getValue();
-    
+
     @IsProperty
     @MapTo
-    @Title("Status")
-    private AssetStatus status;
+    @CompositeKeyMember(1)
+    private Asset asset;
+
+    @IsProperty
+    @MapTo
+    @CompositeKeyMember(2)
+    private Certification certification;
 
     @Observable
-    public Asset setStatus(final AssetStatus status) {
-        this.status = status;
+    public AssetCertification setCertification(final Certification certification) {
+        this.certification = certification;
         return this;
     }
 
-    public AssetStatus getStatus() {
-        return status;
+    public Certification getCertification() {
+        return certification;
     }
 
-    @Override
     @Observable
-    public Asset setDesc(final String desc) {
-        return (Asset) super.setDesc(desc);
+    public AssetCertification setAsset(final Asset value) {
+        this.asset = value;
+        return this;
+    }
+
+    public Asset getAsset() {
+        return asset;
     }
 
 }
