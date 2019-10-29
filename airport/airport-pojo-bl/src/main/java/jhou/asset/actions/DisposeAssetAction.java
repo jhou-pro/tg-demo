@@ -1,5 +1,7 @@
 package jhou.asset.actions;
 
+import static ua.com.fielden.platform.entity.NoKey.NO_KEY;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,6 +32,10 @@ public class DisposeAssetAction extends AbstractFunctionalEntityWithCentreContex
     private static final Pair<String, String> entityTitleAndDesc = TitlesDescsGetter.getEntityTitleAndDesc(DisposeAssetAction.class);
     public static final String ENTITY_TITLE = entityTitleAndDesc.getKey();
     public static final String ENTITY_DESC = entityTitleAndDesc.getValue();
+    
+    protected DisposeAssetAction() {
+        setKey(NO_KEY);
+    }
     
     @IsProperty
     @Title(value = "Dispose all?", desc = "Dispose all assets that match the selection criteria and appear in the centre?")
