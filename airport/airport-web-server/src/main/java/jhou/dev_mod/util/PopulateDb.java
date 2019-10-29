@@ -12,6 +12,8 @@ import org.hibernate.dialect.Dialect;
 import org.hibernate.dialect.H2Dialect;
 
 import jhou.asset.Asset;
+import jhou.asset.AssetCertification;
+import jhou.asset.Certification;
 import jhou.config.ApplicationDomain;
 import jhou.personnel.Person;
 import jhou.tablecodes.AssetStatus;
@@ -82,11 +84,15 @@ public class PopulateDb extends DomainDrivenDataPopulation {
         
         final AssetStatus oStatus = save(new_(AssetStatus.class, "O").setDesc("Operational."));
         final AssetStatus xStatus = save(new_(AssetStatus.class, "X").setDesc("Disposed."));
-        save(new_(Asset.class, "A1").setDesc("Asset 1.").setStatus(oStatus));
+        final Asset asset1 = save(new_(Asset.class, "A1").setDesc("Asset 1.").setStatus(oStatus));
         save(new_(Asset.class, "A2").setDesc("Asset 2.").setStatus(xStatus));
-
+        final Certification cert1 = save(new_(Certification.class, "C1").setDesc("Certification 1."));
+        final Certification cert2 = save(new_(Certification.class, "C2").setDesc("Certification 2."));
+        save(new_composite(AssetCertification.class, asset1, cert1));
+        save(new_composite(AssetCertification.class, asset1, cert2));
+        
         LOGGER.info("Completed database creation and population.");
-	}
+    }
 
     private void setupPerson(final User.system_users defaultUser, final String emailDomain) {
         final User su = co(User.class).findByKey(defaultUser.name());

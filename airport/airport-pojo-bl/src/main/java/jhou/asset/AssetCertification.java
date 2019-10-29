@@ -28,7 +28,6 @@ import ua.com.fielden.platform.utils.Pair;
 @MapEntityTo
 @DescTitle("Description")
 @DisplayDescription
-@DescRequired
 public class AssetCertification extends AbstractPersistentEntity<DynamicEntityKey> {
 
     private static final Pair<String, String> entityTitleAndDesc = TitlesDescsGetter.getEntityTitleAndDesc(AssetCertification.class);
