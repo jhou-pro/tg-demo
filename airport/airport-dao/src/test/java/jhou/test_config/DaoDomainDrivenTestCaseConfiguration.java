@@ -4,6 +4,14 @@ import java.util.Properties;
 
 import org.apache.log4j.xml.DOMConfigurator;
 
+import com.google.inject.Injector;
+
+import jhou.config.ApplicationDomain;
+import jhou.dbsetup.HibernateSetup;
+import jhou.filter.NoDataFilter;
+import jhou.ioc.ApplicationServerModule;
+import jhou.ioc.TestApplicationServerModule;
+import jhou.serialisation.SerialisationClassProvider;
 import ua.com.fielden.platform.entity.factory.EntityFactory;
 import ua.com.fielden.platform.entity.query.IdOnlyProxiedEntityTypeCache;
 import ua.com.fielden.platform.entity.query.metadata.DomainMetadata;
@@ -12,14 +20,6 @@ import ua.com.fielden.platform.ioc.NewUserNotifierMockBindingModule;
 import ua.com.fielden.platform.security.NoAuthorisation;
 import ua.com.fielden.platform.test.DbDrivenTestCase;
 import ua.com.fielden.platform.test.IDomainDrivenTestCaseConfiguration;
-
-import com.google.inject.Injector;
-
-import jhou.config.ApplicationDomain;
-import jhou.dbsetup.HibernateSetup;
-import jhou.filter.NoDataFilter;
-import jhou.ioc.ApplicationServerModule;
-import jhou.serialisation.SerialisationClassProvider;
 
 /**
  * Provides implementation of {@link IDomainDrivenTestCaseConfiguration} for testing purposes, which is mainly related to construction of appropriate IoC modules.
@@ -56,7 +56,7 @@ public final class DaoDomainDrivenTestCaseConfiguration implements IDomainDriven
     	    
     	    final ApplicationDomain applicationDomainProvider = new ApplicationDomain();
     	    
-            iocModule = new ApplicationServerModule(
+            iocModule = new TestApplicationServerModule(
                     HibernateSetup.getHibernateTypes(),
                     applicationDomainProvider,
                     applicationDomainProvider.domainTypes(),
