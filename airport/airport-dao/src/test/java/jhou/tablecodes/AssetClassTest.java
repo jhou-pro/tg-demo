@@ -1,5 +1,6 @@
 package jhou.tablecodes;
 
+import static jhou.tablecodes.IAssetClass.FETCH_PROVIDER;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -13,6 +14,16 @@ import jhou.test_config.UniversalConstantsForTesting;
 import ua.com.fielden.platform.utils.IUniversalConstants;
 
 public class AssetClassTest extends AbstractDaoTestCase {
+    
+    @Test
+    public void asset_class_name_cannot_contain_spaces() {
+        final AssetClass ac1 = co$(AssetClass.class).findByKeyAndFetch(FETCH_PROVIDER.fetchModel(), "AC1");
+        assertTrue(ac1.isValid().isSuccessful());
+        
+        ac1.setName("name with spaces");
+        assertFalse(ac1.isValid().isSuccessful());
+        assertEquals("No spaces allowed.", ac1.isValid().getMessage());
+    }
     
     @Test
     public void some_predicates_on_abstract_entities() {

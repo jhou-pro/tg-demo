@@ -1,7 +1,7 @@
 package jhou.tablecodes;
 
-import ua.com.fielden.platform.entity.AbstractEntity;
-import ua.com.fielden.platform.entity.AbstractPersistentEntity;
+import jhou.tablecodes.validators.NoSpaceValidator;
+import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
 import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.annotation.CompanionObject;
 import ua.com.fielden.platform.entity.annotation.CompositeKeyMember;
@@ -15,6 +15,8 @@ import ua.com.fielden.platform.entity.annotation.MapEntityTo;
 import ua.com.fielden.platform.entity.annotation.MapTo;
 import ua.com.fielden.platform.entity.annotation.Observable;
 import ua.com.fielden.platform.entity.annotation.Title;
+import ua.com.fielden.platform.entity.annotation.mutator.BeforeChange;
+import ua.com.fielden.platform.entity.annotation.mutator.Handler;
 import ua.com.fielden.platform.reflection.TitlesDescsGetter;
 import ua.com.fielden.platform.utils.Pair;
 
@@ -31,7 +33,7 @@ import ua.com.fielden.platform.utils.Pair;
 @DescTitle("Asset Class Description")
 @DisplayDescription
 @DescRequired
-public class AssetClass extends AbstractPersistentEntity<DynamicEntityKey> {
+public class AssetClass extends ActivatableAbstractEntity<DynamicEntityKey> {
     
     private static final Pair<String, String> entityTitleAndDesc = TitlesDescsGetter.getEntityTitleAndDesc(AssetClass.class);
     public static final String ENTITY_TITLE = entityTitleAndDesc.getKey();
@@ -41,6 +43,7 @@ public class AssetClass extends AbstractPersistentEntity<DynamicEntityKey> {
     @MapTo
     @Title(value = "Name", desc = "Asset class name")
     @CompositeKeyMember(1)
+    @BeforeChange(@Handler(NoSpaceValidator.class))
     private String name;
     
     @Observable
