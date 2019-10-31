@@ -1,5 +1,6 @@
 package jhou.tablecodes;
 
+import jhou.tablecodes.validators.NoSpaceValidator;
 import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
 import ua.com.fielden.platform.entity.DynamicEntityKey;
 import ua.com.fielden.platform.entity.annotation.CompanionObject;
@@ -14,6 +15,8 @@ import ua.com.fielden.platform.entity.annotation.MapEntityTo;
 import ua.com.fielden.platform.entity.annotation.MapTo;
 import ua.com.fielden.platform.entity.annotation.Observable;
 import ua.com.fielden.platform.entity.annotation.Title;
+import ua.com.fielden.platform.entity.annotation.mutator.BeforeChange;
+import ua.com.fielden.platform.entity.annotation.mutator.Handler;
 import ua.com.fielden.platform.reflection.TitlesDescsGetter;
 import ua.com.fielden.platform.utils.Pair;
 
@@ -40,6 +43,7 @@ public class AssetClass extends ActivatableAbstractEntity<DynamicEntityKey> {
     @MapTo
     @Title(value = "Name", desc = "Asset class name")
     @CompositeKeyMember(1)
+    @BeforeChange(@Handler(NoSpaceValidator.class))
     private String name;
     
     @Observable
