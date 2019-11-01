@@ -160,7 +160,7 @@ public class AssetWebUiConfig {
                 .build();
 
         final IMaster<Asset> masterConfig = new SimpleMasterBuilder<Asset>().forEntity(Asset.class)
-                .addProp("key").asSinglelineText().also()
+                .addProp("number").asSinglelineText().also()
                 .addProp("desc").asMultilineText().also()
                 .addProp("status").asAutocompleter().also()
                 .addProp("parent").asAutocompleter().withAction(displayRelatedOpenAssets).also()

@@ -16,6 +16,7 @@ import jhou.asset.AssetCertification;
 import jhou.asset.Certification;
 import jhou.config.ApplicationDomain;
 import jhou.personnel.Person;
+import jhou.tablecodes.AssetClass;
 import jhou.tablecodes.AssetStatus;
 import ua.com.fielden.platform.devdb_support.DomainDrivenDataPopulation;
 import ua.com.fielden.platform.entity.AbstractEntity;
@@ -84,14 +85,17 @@ public class PopulateDb extends DomainDrivenDataPopulation {
         
         final AssetStatus oStatus = save(new_(AssetStatus.class, "O").setDesc("Operational."));
         final AssetStatus xStatus = save(new_(AssetStatus.class, "X").setDesc("Disposed."));
-        final Asset asset1 = save(new_(Asset.class, "A1").setDesc("Asset 1.").setStatus(oStatus));
-        final Asset asset2 = save(new_(Asset.class, "A2").setDesc("Asset 2.").setStatus(xStatus).setParent(asset1));
-        final Asset asset3 = save(new_(Asset.class, "A3").setDesc("Asset 3.").setStatus(oStatus).setParent(asset1).setPeer(asset2));
+        final Asset asset1 = save(new_composite(Asset.class, "A1").setDesc("Asset 1.").setStatus(oStatus).setActive(true));
+        final Asset asset2 = save(new_composite(Asset.class, "A2").setDesc("Asset 2.").setStatus(xStatus).setParent(asset1).setActive(true));
+        final Asset asset3 = save(new_composite(Asset.class, "A3").setDesc("Asset 3.").setStatus(oStatus).setParent(asset1).setPeer(asset2).setActive(true));
         save(asset2.setPeer(asset3));
         final Certification cert1 = save(new_(Certification.class, "C1").setDesc("Certification 1."));
         final Certification cert2 = save(new_(Certification.class, "C2").setDesc("Certification 2."));
         save(new_composite(AssetCertification.class, asset1, cert1));
         save(new_composite(AssetCertification.class, asset1, cert2));
+        
+        save(new_composite(AssetClass.class, "AC1").setDesc("Asset Class 1.").setActive(true));
+        save(new_composite(AssetClass.class, "AC2").setDesc("Asset Class 2."));
         
         LOGGER.info("Completed database creation and population.");
     }
