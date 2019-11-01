@@ -92,14 +92,28 @@ public class WebUiConfig extends AbstractWebUiConfig {
 
         // Configure application menu
         configDesktopMainMenu().
+            addModule("Asset Acquisition").
+                description("Asset Acquisition description.").
+                icon("mainMenu:help").
+                detailIcon("mainMenu:help").
+                bgColor("#FFE680").
+                captionBgColor("#FFD42A").menu()
+                .addMenuItem("Asset").description("Asset centre").centre(assetWebUiConfig.centre).done()
+            .done().done().
+            addModule("Table Codes").
+                description("Table Codes description.").
+                icon("mainMenu:help").
+                detailIcon("mainMenu:help").
+                bgColor("#FFE680").
+                captionBgColor("#FFD42A").menu()
+                .addMenuItem("Asset Class").description("Asset Class centre").centre(assetClassWebUiConfig.centre).done()
+            .done().done().
             addModule("Users / Personnel").
                 description("Provides functionality for managing application security and personnel data.").
                 icon("mainMenu:help").
                 detailIcon("mainMenu:help").
                 bgColor("#FFE680").
                 captionBgColor("#FFD42A").menu()
-                .addMenuItem("Asset").description("Asset centre").centre(assetWebUiConfig.centre).done()
-                .addMenuItem("Asset Class").description("Asset Class centre").centre(assetClassWebUiConfig.centre).done()
                 .addMenuItem("Personnel").description("Personnel related data")
                     .addMenuItem("Personnel").description("Personnel Centre").centre(personWebUiConfig.centre).done()
                 .done()
@@ -108,7 +122,7 @@ public class WebUiConfig extends AbstractWebUiConfig {
                     .addMenuItem("User Roles").description("User roles centre").centre(userRoleWebUiConfig.centre).done()
                 .done()
             .done().done()
-        .setLayoutFor(Device.DESKTOP, null, "[[[]]]")
+        .setLayoutFor(Device.DESKTOP, null, "[[[{\"rowspan\": 2}], []], [[]]]")
         .setLayoutFor(Device.TABLET, null, "[[[]]]")
         .setLayoutFor(Device.MOBILE, null, "[[[]]]")
         .minCellWidth(100).minCellHeight(148).done();
